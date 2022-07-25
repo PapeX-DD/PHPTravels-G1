@@ -3,7 +3,7 @@ from selenium import webdriver
 
 
 source = 'https://phptravels.net/' #URL
-PATH = 'C:\Chrome_driver\chromedriver.exe' #Ubicación del WebDriver
+PATH = 'C:\PHPTravels-G1\Chrome Driver\chromedriver.exe' #Ubicación del WebDriver
 driver = webdriver.Chrome(PATH)
 driver.get(source)
 
