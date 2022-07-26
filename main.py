@@ -5,6 +5,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 import time
 import warnings
 
@@ -120,36 +121,44 @@ def visaTest(driver):
     timingTest(driver)
     visaButton = driver.find_element(By.XPATH,".//button[contains(.,'visa')]")
     visaButton.click()
+    time.sleep(1)
 
     #Se completan los datos de pais de origen y pais que se requiere la visa
     timingTest(driver)
-    fromCountry = driver.find_element("name",'from')
-    toCountry = driver.find_element_by_name('to')
-    SubmitButton = driver.find_element_by_xpath("//button[@type='button'][contains(.,'Submit')]")
-    fromAirport.send_keys('United States')
-    toAirport.send_keys('France')
+    fromCountry = driver.find_element(By.ID, 'select2-from_country-container')
+    fromCountry.click()
+    fromCountryinput = driver.find_element(By.XPATH, "//input[contains(@class,'select2-search__field')]")
+    fromCountryinput.send_keys("United States")
+    fromCountryinput.send_keys(Keys.RETURN)
+    toCountry = driver.find_element(By.ID, 'select2-to_country-container')
+    toCountry.click()
+    toCountryinput = driver.find_element(By.XPATH, "//input[contains(@class,'select2-search__field')]")
+    toCountryinput.send_keys("France")
+    toCountryinput.send_keys(Keys.RETURN)
+    SubmitButton = driver.find_element(By.ID,"submit")
     SubmitButton.click()
 
     #se llenan los datos personales
     timingTest(driver)
-    myFirstName = driver.find_element_by_name('firstname')
-    myLastName = driver.find_element_by_name('lastname')
-    myEmail = driver.find_element_by_name('email')
-    myPhone = driver.find_element_by_name('phone')
-    myNotes = driver.find_element_by_name('notes')
-    SubmitButton = driver.find_element_by_xpath("//button[@type='button'][contains(.,'Submit')]")
+    myFirstName = driver.find_element(By.NAME,'firstname')
+    myLastName = driver.find_element(By.NAME,'lastname')
+    myEmail = driver.find_element(By.NAME,'email')
+    myPhone = driver.find_element(By.NAME,'phone')
+    myNotes = driver.find_element(By.NAME,'notes')
+    SubmitButton = driver.find_element(By.ID,"submit")
 
     myFirstName.send_keys('Ted')
     myLastName.send_keys('Mosby')
     myEmail.send_keys('tmosby@gstp.com')
     myPhone.send_keys('+212 1234-5678')
     myNotes.send_keys('French visa')
+    time.sleep(1)
     SubmitButton.click()
 
     #Modulo de confirmacion
     timingTest(driver)
     time.sleep(5)
-    returnHome = driver.find_element_by_xpath("//a[@href='https://phptravels.net/'][contains(.,'Home')]")
+    returnHome = driver.find_element(By.XPATH,"//a[@href='https://phptravels.net/'][contains(.,'Home')]")
     returnHome.click()
     timingTest(driver)
     time.sleep(5)
@@ -166,10 +175,10 @@ def main():
     driver.implicitly_wait(0.5)
     driver.maximize_window()
     driver.get(source)
-    #performanceData(driver)
-    #performanceElementSearch(driver)
-    #timingTest(driver)
-    #bookingTest(driver)
+    performanceData(driver)
+    performanceElementSearch(driver)
+    timingTest(driver)
+    bookingTest(driver)
     visaTest(driver)
 
 warnings.filterwarnings("ignore")
