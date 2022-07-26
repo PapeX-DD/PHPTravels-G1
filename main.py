@@ -166,7 +166,7 @@ def visaTest(driver):
 def main():
     caps = DesiredCapabilities.CHROME
     source = 'https://phptravels.net/' # URL
-    PATH = 'C:\\Users\\rivil\\Documents\\Fidelitas\\4 Calidad de software\\Simulacion\\Chrome Driver\\chromedriver.exe' # Ubicación del WebDriver
+    PATH = 'C:\PHPTravels-G1\Chrome Driver\chromedriver.exe' # Ubicación del WebDriver
     caps['goog:loggingPrefs'] = {'performance': 'ALL'}
     driver = webdriver.Chrome(PATH, desired_capabilities=caps)
     driver.implicitly_wait(0.5)
