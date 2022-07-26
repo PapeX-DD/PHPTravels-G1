@@ -99,7 +99,7 @@ def performanceData(driver):
 def main():
     caps = DesiredCapabilities.CHROME
     source = 'https://phptravels.net/' #URL
-    PATH = 'C:\PHPTravels\chromedriver.exe' #Ubicación del WebDriver
+    PATH = 'C:\PHPTravels-G1\Chrome Driver\chromedriver.exe' #Ubicación del WebDriver
     caps['goog:loggingPrefs'] = {'performance': 'ALL'}
     driver = webdriver.Chrome(PATH, desired_capabilities=caps)
     driver.implicitly_wait(0.5)
