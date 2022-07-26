@@ -1,12 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 import time
+import warnings
 
 def timingTest(driver):
-        #Este calcula dos tiempos o timings.
-        #Performance de back-end: desde cuando el usuario empieza la navegación hasta cuando recibe la primera respuesta.
-        #Performance del front-end: inicia cuando el usuario recibe la primera respuesta y hasta que la carga del DOM se complete.
+        # Este calcula dos tiempos o timings.
+        # Performance de back-end: desde cuando el usuario empieza la navegación hasta cuando recibe la primera respuesta.
+        # Performance del front-end: inicia cuando el usuario recibe la primera respuesta y hasta que la carga del DOM se complete.
        
         navigationStart = driver.execute_script("return window.performance.timing.navigationStart")
         responseStart = driver.execute_script("return window.performance.timing.responseStart")
@@ -33,7 +38,7 @@ def bookingTest(driver):
 
     # Instancias del modulo de ofertas 
     timingTest(driver)
-    myBookButton = driver.find_element_by_xpath("//strong[contains(.,'USD 309.1')]")
+    myBookButton = driver.find_element_by_xpath("//strong[contains(.,'USD 187')]")
     myBookButton.click()
 
     # Instancias del modulo de reserva (Informacion Personal)
@@ -90,6 +95,19 @@ def bookingTest(driver):
     timingTest(driver)
     time.sleep(5)
 
+def performanceElementSearch(driver):
+    # Revisa el que la pagina posea un elemento (element_present) en un tiempo especifico
+    timeout = 5
+    while True:
+        try:
+            element_present = EC.presence_of_element_located((By.ID, 'visa-tab'))
+            WebDriverWait(driver, timeout).until(element_present)
+            print("Elemento presente")
+            break
+        except TimeoutException as ex:
+            print("No se encontro el elemento " + str(ex))
+            break
+
 def performanceData(driver):
     print('Google Chrome Performance data')
     performanceData = driver.execute_script("return window.performance.getEntries();")
@@ -98,15 +116,17 @@ def performanceData(driver):
 
 def main():
     caps = DesiredCapabilities.CHROME
-    source = 'https://phptravels.net/' #URL
-    PATH = 'C:\PHPTravels-G1\Chrome Driver\chromedriver.exe' #Ubicación del WebDriver
+    source = 'https://phptravels.net/' # URL
+    PATH = 'C:\PHPTravels-G1\Chrome Driver\chromedriver.exe' # Ubicación del WebDriver
     caps['goog:loggingPrefs'] = {'performance': 'ALL'}
     driver = webdriver.Chrome(PATH, desired_capabilities=caps)
     driver.implicitly_wait(0.5)
     driver.maximize_window()
     driver.get(source)
     performanceData(driver)
+    performanceElementSearch(driver)
     timingTest(driver)
     bookingTest(driver)
 
+warnings.filterwarnings("ignore")
 main()
