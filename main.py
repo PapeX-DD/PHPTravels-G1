@@ -112,12 +112,55 @@ def performanceData(driver):
     print('Google Chrome Performance data')
     performanceData = driver.execute_script("return window.performance.getEntries();")
     print (performanceData)
+
+
+def visaTest(driver):
+    #Instancia del modulo de visas
+    #Abrimos la pagina de visas
+    timingTest(driver)
+    visaButton = driver.find_element_by_xpath(".//button[contains(.,'visa')]")
+    visaButton.click()
+
+    #Se completan los datos de pais de origen y pais que se requiere la visa
+    timingTest(driver)
+    fromCountry = driver.find_element_by_name('from')
+    toCountry = driver.find_element_by_name('to')
+    SubmitButton = driver.find_element_by_xpath("//button[@type='button'][contains(.,'Submit')]")
+    fromAirport.send_keys('United States')
+    toAirport.send_keys('France')
+    SubmitButton.click()
+
+    #se llenan los datos personales
+    timingTest(driver)
+    myFirstName = driver.find_element_by_name('firstname')
+    myLastName = driver.find_element_by_name('lastname')
+    myEmail = driver.find_element_by_name('email')
+    myPhone = driver.find_element_by_name('phone')
+    myNotes = driver.find_element_by_name('notes')
+    SubmitButton = driver.find_element_by_xpath("//button[@type='button'][contains(.,'Submit')]")
+
+    myFirstName.send_keys('Ted')
+    myLastName.send_keys('Mosby')
+    myEmail.send_keys('tmosby@gstp.com')
+    myPhone.send_keys('+212 1234-5678')
+    myNotes.send_keys('French visa')
+    SubmitButton.click()
+
+    #Modulo de confirmacion
+    timingTest(driver)
+    time.sleep(5)
+    returnHome = driver.find_element_by_xpath("//a[@href='https://phptravels.net/'][contains(.,'Home')]")
+    returnHome.click()
+    timingTest(driver)
+    time.sleep(5)
+    
+
        
 
 def main():
     caps = DesiredCapabilities.CHROME
     source = 'https://phptravels.net/' # URL
-    PATH = 'C:\PHPTravels-G1\Chrome Driver\chromedriver.exe' # Ubicación del WebDriver
+    PATH = 'C:\\Users\\rivil\\Documents\\Fidelitas\\4 Calidad de software\\Simulacion\\Chrome Driver\\chromedriver.exe' # Ubicación del WebDriver
     caps['goog:loggingPrefs'] = {'performance': 'ALL'}
     driver = webdriver.Chrome(PATH, desired_capabilities=caps)
     driver.implicitly_wait(0.5)
@@ -127,6 +170,7 @@ def main():
     performanceElementSearch(driver)
     timingTest(driver)
     bookingTest(driver)
+    visaTest()
 
 warnings.filterwarnings("ignore")
 main()
