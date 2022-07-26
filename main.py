@@ -10,20 +10,17 @@ import time
 import warnings
 
 def timingTest(driver):
-        # Este calcula dos tiempos o timings.
-        # Performance de back-end: desde cuando el usuario empieza la navegación hasta cuando recibe la primera respuesta.
-        # Performance del front-end: inicia cuando el usuario recibe la primera respuesta y hasta que la carga del DOM se complete.
-       
-        navigationStart = driver.execute_script("return window.performance.timing.navigationStart")
-        responseStart = driver.execute_script("return window.performance.timing.responseStart")
-        domComplete = driver.execute_script("return window.performance.timing.domComplete")
+    # Este calcula los tiempos o timings del performance del back-end y del front-end.
+    navigationStart = driver.execute_script("return window.performance.timing.navigationStart")
+    responseStart = driver.execute_script("return window.performance.timing.responseStart")
+    domComplete = driver.execute_script("return window.performance.timing.domComplete")
 
-        backendPerformance = responseStart - navigationStart
-        frontendPerformance = domComplete - responseStart
+    backendPerformance = responseStart - navigationStart
+    frontendPerformance = domComplete - responseStart
 
-        print ('Calculando tiempos de respuesta')
-        print ('Tiempo del Back End: ' + str(backendPerformance) +' ms')
-        print ('Tiempo del Front End: ' + str(frontendPerformance)+' ms')
+    print ('Calculando tiempos de respuesta')
+    print ('Tiempo del Back End: ' + str(backendPerformance) +' ms')
+    print ('Tiempo del Front End: ' + str(frontendPerformance)+' ms')
 
 def bookingTest(driver):
     # Instancias del modulo de vuelos
