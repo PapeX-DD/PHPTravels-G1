@@ -30,8 +30,6 @@ def logInTest(driver):
     myLogInButton = driver.find_element(By.XPATH, "(//a[@class='nav-link'])[5]")
     myLogInButton.click()
     time.sleep(1)
-    
-
 
     # Instancias del sign up (Informacion Personal)
     timingTest(driver)
@@ -42,8 +40,7 @@ def logInTest(driver):
     myUserName.send_keys("Chanchito")
     myPassword.click()
     myPassword.send_keys('12345')
-    time.sleep(1)
-    
+    time.sleep(1)    
     myLogInButton = driver.find_element(By.XPATH, "(//button[@class='btn btn-primary'])[3]")
     myLogInButton.click()
 
@@ -69,26 +66,22 @@ def performanceElementSearch(driver):
             break
 
 def performanceData(driver):
+    # Imprime los logs de performance de Google Chrome.
     print('Google Chrome Performance data')
     performanceData = driver.execute_script("return window.performance.getEntries();")
     print (performanceData)
 
 
 def multipleUsersTest(driver):
-    #Instancia del modulo de visas
-    #Abrimos la pagina de visas
+    # Realiza el test de multiples usuarios
     timingTest(driver)
     phoneLink = driver.find_element(By.XPATH,"(//a[@class='hrefch'])[1]")
     phoneLink.click()
     time.sleep(1)
-
-
     addtToCartBtn = driver.find_element(By.XPATH,"//div[contains(@class,'col-sm-12 col-md-6')]//a[1]")
     addtToCartBtn.click()
     cartbtn = driver.find_element(By.XPATH,"(//a[@class='nav-link'])[4]")
     cartbtn.click()
-
-
 
     #Modulo de confirmacion
     timingTest(driver)
@@ -99,12 +92,12 @@ def multipleUsersTest(driver):
     time.sleep(5)
 
 def threadtasks(driver):
+    # Crea un hilo de procesamiento, para procesos paralelos.
     threads = []
     for n in range (1,6):
         new_thread = Thread(target=multipleUsersTest(driver))
         threads.append(new_thread)
         new_thread.start()
-    
     for t in threads:
         t.join()
     print ("Test done with 5 users")
@@ -113,9 +106,10 @@ def threadtasks(driver):
        
 
 def main():
+    # Maneja los distintos modulos de pruebas.
     caps = DesiredCapabilities.CHROME
-    source = 'https://www.demoblaze.com/index.html' # URL
-    PATH = 'C:\\Users\\rivil\\source\\repos\\DemoBlaze tests\\DemoBlaze tests\\web driver\\chromedriver.exe' # Ubicación del WebDriver
+    source = 'https://www.demoblaze.com/index.html' 
+    PATH = 'C:\BlazeDemo\chromedriver.exe' 
     caps['goog:loggingPrefs'] = {'performance': 'ALL'}
     driver = webdriver.Chrome(PATH, desired_capabilities=caps)
     driver.implicitly_wait(0.5)
