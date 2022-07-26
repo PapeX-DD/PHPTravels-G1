@@ -118,12 +118,12 @@ def visaTest(driver):
     #Instancia del modulo de visas
     #Abrimos la pagina de visas
     timingTest(driver)
-    visaButton = driver.find_element_by_xpath(".//button[contains(.,'visa')]")
+    visaButton = driver.find_element(By.XPATH,".//button[contains(.,'visa')]")
     visaButton.click()
 
     #Se completan los datos de pais de origen y pais que se requiere la visa
     timingTest(driver)
-    fromCountry = driver.find_element_by_name('from')
+    fromCountry = driver.find_element("name",'from')
     toCountry = driver.find_element_by_name('to')
     SubmitButton = driver.find_element_by_xpath("//button[@type='button'][contains(.,'Submit')]")
     fromAirport.send_keys('United States')
@@ -166,11 +166,11 @@ def main():
     driver.implicitly_wait(0.5)
     driver.maximize_window()
     driver.get(source)
-    performanceData(driver)
-    performanceElementSearch(driver)
-    timingTest(driver)
-    bookingTest(driver)
-    visaTest()
+    #performanceData(driver)
+    #performanceElementSearch(driver)
+    #timingTest(driver)
+    #bookingTest(driver)
+    visaTest(driver)
 
 warnings.filterwarnings("ignore")
 main()
