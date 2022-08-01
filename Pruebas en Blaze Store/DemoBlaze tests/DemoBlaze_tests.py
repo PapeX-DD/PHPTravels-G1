@@ -109,7 +109,7 @@ def main():
     # Maneja los distintos modulos de pruebas.
     caps = DesiredCapabilities.CHROME
     source = 'https://www.demoblaze.com/index.html' 
-    PATH = 'C:\BlazeDemo\chromedriver.exe' 
+    PATH = 'C:\Program Files (x86)\chromedriver.exe' 
     caps['goog:loggingPrefs'] = {'performance': 'ALL'}
     driver = webdriver.Chrome(PATH, desired_capabilities=caps)
     driver.implicitly_wait(0.5)
@@ -117,10 +117,10 @@ def main():
     driver.get(source)
     #performanceData(driver)
     #performanceElementSearch(driver)
-    #timingTest(driver)
+    timingTest(driver)
     #logInTest(driver)
     #multipleUsersTest(driver)
-    threadtasks(driver)
+    #threadtasks(driver)
     driver.close()
 
 warnings.filterwarnings("ignore")

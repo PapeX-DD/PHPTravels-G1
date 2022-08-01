@@ -163,7 +163,7 @@ def visaTest(driver):
 
        
 
-def main():
+"""def main():
     caps = DesiredCapabilities.CHROME
     source = 'https://phptravels.net/' # URL
     PATH = 'C:\PHPTravels-G1\Chrome Driver\chromedriver.exe' # Ubicación del WebDriver
@@ -179,4 +179,4 @@ def main():
     visaTest(driver)
 
 warnings.filterwarnings("ignore")
-main()
+main()"""
